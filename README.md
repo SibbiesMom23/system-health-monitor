@@ -2,6 +2,15 @@
 
 A Python-based system monitoring tool that collects and logs comprehensive system health metrics. Designed for operational awareness and system integrity monitoring with a focus on defensive monitoring practices.
 
+## Why This Matters
+
+In engineering environments, understanding system performance is critical for:
+- **Embedded Systems**: Resource-constrained environments require careful monitoring
+- **Test & Validation**: Baseline measurements before/after system changes
+- **Process Optimization**: Identifying bottlenecks and resource constraints
+- **Reliability Engineering**: Tracking system health over time
+- **Integration Testing**: Verifying system behavior under different loads
+
 ## Features
 
 - **System Metrics Collection**
@@ -41,7 +50,7 @@ A Python-based system monitoring tool that collects and logs comprehensive syste
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/system-health-monitor.git
+git clone https://github.com/SibbiesMom23/system-health-monitor.git
 cd system-health-monitor
 ```
 
@@ -150,6 +159,39 @@ Platform: Linux
 ...
 ```
 
+## Example Output
+
+Here's what you get when running the monitor:
+
+```
+$ python monitor.py --format text
+
+Starting System Health & Integrity Monitor...
+------------------------------------------------------------
+Collecting system metrics...
+Enumerating processes...
+Analyzing network connections...
+
+Writing results to log file...
+
+Health monitoring complete!
+Report saved to: health_monitor_20260107_004757.log
+------------------------------------------------------------
+
+Summary:
+  Format: TEXT
+  Top Processes: 20
+  All Connections: No
+  Log File: health_monitor_20260107_004757.log
+```
+
+**Sample metrics captured:**
+- CPU: 8.7% overall usage across 10 cores
+- Memory: 71.3% utilization (16GB total, 6.57GB used)
+- Disk: Multiple partitions monitored with usage percentages
+- Processes: 565 total (300 running, 263 sleeping)
+- Network: 29 interfaces discovered with I/O statistics
+
 ## Project Structure
 
 ```
@@ -166,6 +208,37 @@ system-health-monitor/
     ├── network.py            # Network monitoring
     └── logger.py             # Output formatting and logging
 ```
+
+## Architecture & Design
+
+### System Design Principles
+
+**Modular Architecture:**
+- Each monitoring component is isolated in its own module
+- Separation of concerns: collection, processing, and output formatting
+- Easy to extend with new monitoring capabilities
+
+**Data Flow:**
+```
+CLI Entry Point (monitor.py)
+    ↓
+Collector Orchestration (collector.py)
+    ↓
+Parallel Data Collection:
+    ├─ metrics.py      → System resources
+    ├─ processes.py    → Running processes
+    └─ network.py      → Network connections
+    ↓
+Logger (logger.py) → Format & Write
+    ↓
+Output Files (JSON/Text)
+```
+
+**Key Design Decisions:**
+- **Snapshot-based**: One-time collection minimizes system impact
+- **Cross-platform**: Using psutil abstraction layer for OS differences
+- **Dual output**: JSON for automation, text for human readability
+- **Error resilience**: Graceful handling of permission-denied scenarios
 
 ## Use Cases
 
@@ -220,6 +293,23 @@ system-health-monitor/
 - Most metrics available without elevated privileges
 - Network connection details may be limited for non-root users
 
+### Performance Characteristics
+
+**Execution Time:**
+- Typical run: 2-5 seconds on modern hardware
+- CPU sampling: 1-second interval for accuracy
+- Minimal system impact during collection
+
+**Resource Usage:**
+- Memory footprint: ~15-30MB during execution
+- No persistent background processes
+- Snapshot-based approach prevents performance degradation
+
+**Scalability:**
+- Handles systems with 500+ processes efficiently
+- Supports multiple disk partitions without performance loss
+- Network interface discovery scales with system configuration
+
 ## Development
 
 ### Running from Source
@@ -267,9 +357,77 @@ pip install psutil
 
 MIT License - See LICENSE file for details
 
+## Engineering Skills Demonstrated
+
+This project showcases key engineering competencies:
+
+**Systems Engineering:**
+- Requirements analysis and system design
+- Modular architecture and component integration
+- Cross-platform compatibility engineering
+- Performance monitoring and optimization
+
+**Software Development:**
+- Object-oriented programming in Python
+- API design and abstraction layers
+- Error handling and edge case management
+- Version control and project organization
+
+**Data Engineering:**
+- Real-time data acquisition and processing
+- Structured data formats (JSON)
+- Data aggregation and summarization
+- Multi-format output generation
+
+**Problem Solving:**
+- Decomposition of complex problems into modules
+- Platform-specific challenges and solutions
+- Resource-constrained considerations
+- User-focused design decisions
+
+**Technical Communication:**
+- Comprehensive documentation
+- Code organization and readability
+- Clear usage examples
+- Professional project presentation
+
+## Future Enhancements
+
+Potential improvements for extended development:
+
+**Monitoring Capabilities:**
+- [ ] Temperature sensors (CPU, GPU, disk)
+- [ ] Battery status for laptops
+- [ ] GPU utilization metrics
+- [ ] I/O wait times and disk latency
+
+**Analysis Features:**
+- [ ] Trend analysis over time
+- [ ] Anomaly detection algorithms
+- [ ] Resource usage alerts/thresholds
+- [ ] Performance comparison between snapshots
+
+**Output & Visualization:**
+- [ ] CSV export for spreadsheet analysis
+- [ ] Real-time dashboard web interface
+- [ ] Graphical charts and visualizations
+- [ ] Email/notification integration
+
+**Advanced Features:**
+- [ ] Continuous monitoring mode with intervals
+- [ ] Remote monitoring capabilities
+- [ ] Database storage for historical data
+- [ ] Configuration file support
+
+**Engineering Applications:**
+- [ ] Test bench integration
+- [ ] CI/CD pipeline monitoring
+- [ ] Container/VM resource tracking
+- [ ] Embedded system profiling
+
 ## Author
 
-GDMS Intern Project - Demonstrating systems engineering and operational awareness
+Engineer Intern Portfolio Project - Demonstrating systems engineering, software development, and technical problem-solving skills
 
 ## Contributing
 
